@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace CJTSD.Net
 {
+    /// <summary>
+    /// This is the DTO class for <see href="https://github.com/james-hu/cjtsd-js/wiki/Compact-JSON-Time-Series-Data">Compact JSON Time Series Data (CJTSD)</see> data.
+    /// To generate a CJTSD object, use <code>CJTSD</code> class.
+    /// </summary>
     public class PlainCJTSD
     {
         static private IList<RawEntry> emptyRawEntries = new List<RawEntry>().AsReadOnly();
@@ -24,6 +28,10 @@ namespace CJTSD.Net
 
         }
 
+        /// <summary>
+        /// Shallow copy constructor
+        /// </summary>
+        /// <param name="other">another instance from which the properties will be copied</param>
         public PlainCJTSD(PlainCJTSD other)
         {
             this.u = other.u;
@@ -38,6 +46,10 @@ namespace CJTSD.Net
             this.o = other.o;
         }
 
+        /// <summary>
+        /// Convert into raw list form.
+        /// </summary>
+        /// <returns>the list containing entries of data points</returns>
         public IList<RawEntry> ToRawList()
         {
             if (t == null || t.Count == 0)
@@ -100,6 +112,9 @@ namespace CJTSD.Net
 
         public class RawEntry
         {
+            /// <summary>
+            /// Timestamp as number of milliseconds since 00:00:00 local time, 1 January 1970
+            /// </summary>
             public long t { get; set; }
             public long d { get; set; }
             public long? c { get; set; }

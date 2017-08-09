@@ -4,7 +4,15 @@ using System.Collections.Generic;
 namespace CJTSD.Net
 {
     /// <summary>
-    /// 
+    /// This is the class for handling (primarily generating) <see href="https://github.com/james-hu/cjtsd-js/wiki/Compact-JSON-Time-Series-Data">Compact JSON Time Series Data (CJTSD)</see> data.
+    /// To generate a CJTSD object:
+    /// <code>
+    ///     CJTSD.builder().add(...).add(...).add(...).build()
+    /// </code>
+    /// To consume a CJTSD object:
+    /// <code>
+    ///     JsonConvert.DeserializeObject<CJTSD>(jsonString).ToList()
+    /// </code>
     /// </summary>
     public class CJTSD : PlainCJTSD
     {
@@ -15,11 +23,19 @@ namespace CJTSD.Net
 
         }
 
+        /// <summary>
+        /// Shallow copy constructor
+        /// </summary>
+        /// <param name="other">another instance from which the properties will be copied</param>
         public CJTSD(PlainCJTSD other) : base(other)
         {
 
         }
 
+        /// <summary>
+        /// Convert into list form
+        /// </summary>
+        /// <returns>the list containing entries of data points</returns>
         public IList<Entry> ToList()
         {
             if (t == null || t.Count == 0)
@@ -79,17 +95,33 @@ namespace CJTSD.Net
             return result;
         }
 
+        /// <summary>
+        /// Create a builder for generating CJTSD object.
+        /// The expected number of data points is 50.
+        /// If the actual number of data points exceeds the expected, the builder will just grow.
+        /// </summary>
+        /// <returns>the builder</returns>
         static public Builder Create()
         {
             return new Builder();
         }
 
+        /// <summary>
+        /// Create a builder for generating CJTSD object.
+        /// The expected number of data points is specified as argument to this method.
+        /// If the actual number of data points exceeds the expected, the builder will just grow.
+        /// </summary>
+        /// <param name="expectedSize">the expected number of data points</param>
+        /// <returns>the builder</returns>
         static public Builder Create(int expectedSize)
         {
             return new Builder(expectedSize);
         }
 
-       public class Builder
+        /// <summary>
+        /// Builder that keeps intermediate data structure for creating CJTSD object.
+        /// </summary>
+        public class Builder
         {
             private const byte MINUTES = 1;
             private const byte SECONDS = 2;
@@ -118,24 +150,48 @@ namespace CJTSD.Net
                 durations = new List<int>(expectedSize);
             }
 
+            /// <summary>
+            /// Set the unit to minute.
+            /// If no SetUnitToXxx method has been called, the default unit (MINUTES) will be used.
+            /// SetUnitToXxx methods should be called no more than once, and only before calling other methods.
+            /// </summary>
+            /// <returns>the builder itself</returns>
             public Builder SetUnitToMinutes()
             {
                 this.unit = MINUTES;
                 return this;
             }
 
+            /// <summary>
+            /// Set the unit to second.
+            /// If no SetUnitToXxx method has been called, the default unit (MINUTES) will be used.
+            /// SetUnitToXxx methods should be called no more than once, and only before calling other methods.
+            /// </summary>
+            /// <returns>the builder itself</returns>
             public Builder SetUnitToSeconds()
             {
                 this.unit = SECONDS;
                 return this;
             }
 
+            /// <summary>
+            /// Set the unit to millisecond.
+            /// If no SetUnitToXxx method has been called, the default unit (MINUTES) will be used.
+            /// SetUnitToXxx methods should be called no more than once, and only before calling other methods.
+            /// </summary>
+            /// <returns>the builder itself</returns>
             public Builder SetUnitToMillis()
             {
                 this.unit = MILLIS;
                 return this;
             }
 
+            /// <summary>
+            /// Add a data point
+            /// </summary>
+            /// <param name="timestamp">the timestamp of the data point</param>
+            /// <param name="duration">the duration</param>
+            /// <returns>the builder itself</returns>
             public Builder Add(long timestamp, int duration)
             {
                 if (timestamps.Count == 0 && duration == -1)
@@ -157,6 +213,12 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a data point
+            /// </summary>
+            /// <param name="timestamp">the timestamp of the data point</param>
+            /// <param name="duration">the duration</param>
+            /// <returns>the builder itself</returns>
             public Builder Add(DateTime timestamp, TimeSpan? duration)
             {
                 if (timestamps.Count == 0 && duration == null)
@@ -186,6 +248,11 @@ namespace CJTSD.Net
                 return Add(tsLong, durInt);
             }
 
+            /// <summary>
+            /// Add a data point with the same duration as its previous data point
+            /// </summary>
+            /// <param name="timestamp">he timestamp of the data point</param>
+            /// <returns>the builder itself</returns>
             public Builder Add(long timestamp)
             {
                 if (timestamps.Count == 0)
@@ -197,11 +264,21 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a data point with the same duration as its previous data point
+            /// </summary>
+            /// <param name="timestamp">the timestamp of the data point</param>
+            /// <returns>the builder itself</returns>
             public Builder Add(DateTime timestamp)
             {
                 return Add(timestamp, (TimeSpan?) null);
             }
 
+            /// <summary>
+            /// Add a count number ('c') to the current data point
+            /// </summary>
+            /// <param name="count">the count number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddCount(long count)
             {
                 if (counts == null)
@@ -212,6 +289,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a sum number ('s') to the current data point
+            /// </summary>
+            /// <param name="sum">the sum number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddSum(decimal sum)
             {
                 if (sums == null)
@@ -222,6 +304,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a average number ('a') to the current data point
+            /// </summary>
+            /// <param name="avg">the average number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddAvg(decimal avg)
             {
                 if (avgs == null)
@@ -232,6 +319,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a minimal number ('m') to the current data point
+            /// </summary>
+            /// <param name="min">the minimal number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddMin(decimal min)
             {
                 if (mins == null)
@@ -242,6 +334,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a maximal number ('x') to the current data point
+            /// </summary>
+            /// <param name="max">the maximal number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddMax(decimal max)
             {
                 if (maxs == null)
@@ -252,6 +349,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add a generic number ('n') to the current data point
+            /// </summary>
+            /// <param name="n">the number</param>
+            /// <returns>the builder itself</returns>
             public Builder AddNumber(decimal n)
             {
                 if (numbers == null)
@@ -262,6 +364,11 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Add an object ('o') to the current data point
+            /// </summary>
+            /// <param name="obj">the object</param>
+            /// <returns>the builder itself</returns>
             public Builder AddObj(Object obj)
             {
                 if (objs == null)
@@ -272,6 +379,10 @@ namespace CJTSD.Net
                 return this;
             }
 
+            /// <summary>
+            /// Find the index of last explicitly specified duration element
+            /// </summary>
+            /// <returns>the index of the last explicitly specified duration element, or -1 if not found.</returns>
             private int indexOfLastSpecifiedDuration()
             {
                 int result = -1;
@@ -286,6 +397,10 @@ namespace CJTSD.Net
                 return result;
             }
 
+            /// <summary>
+            /// Build the CJTSD object
+            /// </summary>
+            /// <returns>the CJTSD object that is ready to be serialized to JSON</returns>
             public CJTSD Build()
             {
                 CJTSD result = new CJTSD();
