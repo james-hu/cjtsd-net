@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace CJTSD.Net
+namespace Cjtsd.Net
 {
     /// <summary>
     /// This is the DTO class for <see href="https://github.com/james-hu/cjtsd-js/wiki/Compact-JSON-Time-Series-Data">Compact JSON Time Series Data (CJTSD)</see> data.
@@ -9,7 +10,7 @@ namespace CJTSD.Net
     /// </summary>
     public class PlainCJTSD
     {
-        static private IList<RawEntry> emptyRawEntries = new List<RawEntry>().AsReadOnly();
+        static private IList<RawEntry> emptyRawEntries = new ReadOnlyCollection<RawEntry>(new List<RawEntry>());
 
         public string u { get; set; }
         public IList<long> t { get; set; }

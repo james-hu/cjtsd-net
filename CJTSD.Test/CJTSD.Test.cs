@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace CJTSD.Net.Test
+namespace Cjtsd.Net.Test
 {
     [TestClass]
     public class CJTSDTest

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace CJTSD.Net
+namespace Cjtsd.Net
 {
     /// <summary>
     /// This is the class for handling (primarily generating) <see href="https://github.com/james-hu/cjtsd-js/wiki/Compact-JSON-Time-Series-Data">Compact JSON Time Series Data (CJTSD)</see> data.
     /// To generate a CJTSD object:
     /// <code>
-    ///     CJTSD.builder().add(...).add(...).add(...).build()
+    ///     CJTSD.Create().Builder().Add(...).Add(...).Add(...).Build()
     /// </code>
     /// To consume a CJTSD object:
     /// <code>
@@ -16,7 +17,7 @@ namespace CJTSD.Net
     /// </summary>
     public class CJTSD : PlainCJTSD
     {
-        static private IList<Entry> emptyEntries = new List<Entry>().AsReadOnly();
+        static private IList<Entry> emptyEntries = new ReadOnlyCollection<Entry>(new List<Entry>());
 
         public CJTSD() : base()
         {

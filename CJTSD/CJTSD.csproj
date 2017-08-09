@@ -1,23 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.1</TargetFramework>
     <AssemblyName>CJTSD.Net</AssemblyName>
     <RootNamespace>CJTSD.Net</RootNamespace>
     <PackageId>CJTSD.Net</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.0.6</PackageVersion>
     <Authors>James Hu</Authors>
     <Description>This is the .NET library for handling Compact JSON Time Series Data (CJTSD) data in either client or server environment.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Documentation added.</PackageReleaseNotes>
     <Copyright>Copyright 2017 (c) James Hu. All rights reserved.</Copyright>
     <PackageTags>CJTSD</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.6</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard1.4\CJTSD.Net.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard1.1\CJTSD.Net.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.1\CJTSD.Net.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
