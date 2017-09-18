@@ -27,6 +27,38 @@ namespace Cjtsd.Net.Test
         }
 
         [TestMethod]
+        public void TestWithNoDurationSpecified()
+        {
+            DateTime start = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, 0, 500);
+            CJTSD cjtsd = CJTSD.Create().SetUnitToMillis()
+                .Add(start.Add(duration))
+                .AddCount(10L)
+                .Add(start.Add(duration).Add(duration))
+                .AddCount(20L)
+                .Add(start.Add(duration).Add(duration).Add(duration))
+                .AddCount(30L)
+                .Build();
+
+            Assert.AreEqual(3, cjtsd.t.Count);
+            Assert.AreEqual(3, cjtsd.c.Count);
+            Assert.AreEqual(1, cjtsd.d.Count);    // [500]
+            Assert.AreEqual(0, cjtsd.d[0]);
+
+            string jsonString = JsonConvert.SerializeObject(cjtsd, jsonSettings);
+            System.Diagnostics.Debug.WriteLine(jsonString);
+
+            IList<CJTSD.Entry> list = JsonConvert.DeserializeObject<CJTSD>(jsonString).ToList();
+            Assert.AreEqual(3, list.Count);
+            Assert.AreEqual(10, list[0].Count);
+            Assert.AreEqual(20, list[1].Count);
+            Assert.AreEqual(30, list[2].Count);
+            Assert.AreEqual(new TimeSpan(0, 0, 0, 0, 0), list[0].Duration);
+            Assert.AreEqual(new TimeSpan(0, 0, 0, 0, 0), list[1].Duration);
+            Assert.AreEqual(new TimeSpan(0, 0, 0, 0, 0), list[2].Duration);
+        }
+
+        [TestMethod]
         public void TestSameDuration()
         {
             DateTime start = DateTime.Now;

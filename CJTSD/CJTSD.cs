@@ -218,14 +218,10 @@ namespace Cjtsd.Net
             /// Add a data point
             /// </summary>
             /// <param name="timestamp">the timestamp of the data point</param>
-            /// <param name="duration">the duration</param>
+            /// <param name="duration">the duration, can be null if the duration is the same as previous one or if this is the first data point and the duration is zero</param>
             /// <returns>the builder itself</returns>
             public Builder Add(DateTime timestamp, TimeSpan? duration)
             {
-                if (timestamps.Count == 0 && duration == null)
-                {
-                    throw new ArgumentException("Duration must be specified for the first data point");
-                }
                 long tsLong;
                 int durInt;
                 long ticksPerUnit = TimeSpan.TicksPerMinute;
@@ -244,29 +240,27 @@ namespace Cjtsd.Net
                         throw new ArgumentException("Unit not supported: " + unit);
                 }
                 tsLong = timestamp.Ticks / ticksPerUnit;
-                durInt = duration == null ? -1 : (int)(duration?.Ticks / ticksPerUnit);
+                durInt = duration == null ? (timestamps.Count == 0 ? 0: -1) : (int)(duration?.Ticks / ticksPerUnit);
 
                 return Add(tsLong, durInt);
             }
 
             /// <summary>
-            /// Add a data point with the same duration as its previous data point
+            /// Add a data point with the same duration as its previous data point.
+            /// If this is the first data point, the duration will be considered as zero.
             /// </summary>
             /// <param name="timestamp">he timestamp of the data point</param>
             /// <returns>the builder itself</returns>
             public Builder Add(long timestamp)
             {
-                if (timestamps.Count == 0)
-                {
-                    throw new ArgumentException("Duration must be specified for the first data point");
-                }
                 timestamps.Add(timestamp);
-                durations.Add(-1);
+                durations.Add(timestamps.Count == 0 ? 0 : - 1);
                 return this;
             }
 
             /// <summary>
-            /// Add a data point with the same duration as its previous data point
+            /// Add a data point with the same duration as its previous data point.
+            /// If this is the first data point, the duration will be considered as zero.
             /// </summary>
             /// <param name="timestamp">the timestamp of the data point</param>
             /// <returns>the builder itself</returns>
