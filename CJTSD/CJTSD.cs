@@ -249,7 +249,7 @@ namespace Cjtsd.Net
             /// Add a data point with the same duration as its previous data point.
             /// If this is the first data point, the duration will be considered as zero.
             /// </summary>
-            /// <param name="timestamp">he timestamp of the data point</param>
+            /// <param name="timestamp">the timestamp of the data point</param>
             /// <returns>the builder itself</returns>
             public Builder Add(long timestamp)
             {
