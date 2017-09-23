@@ -1,8 +1,8 @@
 # CJTSD.Net
-Compact JSON Time Series Data (CJTSD) library for C#/.NET
+This is the C#/.NET library for generating and handling [Compact JSON Time Series Data (CJTSD)](https://github.com/james-hu/cjtsd-js/wiki/Compact-JSON-Time-Series-Data) data in either client or server environment.
 
 There are CJTSD libraries for other programming languages:
-* Java - [in jabb-core-java8](https://github.com/james-hu/jabb-core-java8/wiki/CJTSD-Java-library)
+* Java - [in jabb-core-java8](https://github.com/james-hu/jabb-core-java8/wiki/CJTSD-Java)
 * Javascript - [cjtsd-js](https://github.com/james-hu/cjtsd-js)
 
 # Usage
