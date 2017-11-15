@@ -14,6 +14,8 @@
     <PackageTags>CJTSD</PackageTags>
     <Version>1.0.7</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/james-hu/cjtsd-net</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
