@@ -12,7 +12,7 @@
     <PackageReleaseNotes>Documentation added.</PackageReleaseNotes>
     <Copyright>Copyright 2017 (c) James Hu. All rights reserved.</Copyright>
     <PackageTags>CJTSD</PackageTags>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/james-hu/cjtsd-net</PackageProjectUrl>
