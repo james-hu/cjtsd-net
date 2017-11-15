@@ -5,7 +5,7 @@
     <AssemblyName>CJTSD.Net</AssemblyName>
     <RootNamespace>CJTSD.Net</RootNamespace>
     <PackageId>CJTSD.Net</PackageId>
-    <PackageVersion>1.0.7</PackageVersion>
+    <PackageVersion>1.0.8</PackageVersion>
     <Authors>James Hu</Authors>
     <Description>This is the .NET library for handling Compact JSON Time Series Data (CJTSD) data in either client or server environment.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
