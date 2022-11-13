@@ -12,7 +12,7 @@ namespace Cjtsd.Net
     /// </code>
     /// To consume a CJTSD object:
     /// <code>
-    ///     JsonConvert.DeserializeObject<CJTSD>(jsonString).ToList()
+    ///     JsonConvert.DeserializeObject&lt;CJTSD&gt;(jsonString).ToList()
     /// </code>
     /// </summary>
     public class CJTSD : PlainCJTSD
